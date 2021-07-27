@@ -67,14 +67,14 @@ class AuthController extends Controller
     public function updatePassword(Request $request)
     {
         $fields = $request->validate([
-            'oldpassword' => 'required|string',
+            'password_old' => 'required|string',
             'password' => 'required|string|confirmed',
             'password_confirmation' => 'required|string'
         ]);
 
         $user = $request->user();
 
-        if(!$user || !Hash::check($fields['oldpassword'], $user->password)) {
+        if(!$user || !Hash::check($fields['password_old'], $user->password)) {
             
             throw ValidationException::withMessages([
                 'message' => 'Invalid old password!'
